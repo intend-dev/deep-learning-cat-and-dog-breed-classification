@@ -3,7 +3,7 @@
 ## Overview
 
 This project compares a small CNN trained from scratch against a ResNet18 fine-tuned from ImageNet weights on the Oxford-IIIT Pet dataset: `37` cat and dog breeds, `7,349` photographs, identical training rules for both models. The pretrained model reaches `0.8940` test accuracy against `0.2044` from scratch, with per-class results, a confusion matrix, and error examples all in the notebook.
-Repository: https://github.com/intend-dev/MS-09-CAP-05-DLS
+Repository: https://github.com/intend-dev/deep-learning-cat-and-dog-breed-classification
 
 ## Repository
 
