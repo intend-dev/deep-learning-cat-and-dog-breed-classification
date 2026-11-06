@@ -134,8 +134,16 @@ h3 {
   page-break-after: avoid;
   break-after: avoid;
 }
-p { margin: 0 0 0.75em; }
-ul, ol { margin: 0.4em 0 0.9em 1.5em; padding: 0; }
+h2.new-page {
+  page-break-before: always;
+  break-before: page;
+}
+p { margin: 0 0 0.75em; orphans: 3; widows: 3; }
+p:has(+ ul), p:has(+ ol), p:has(+ table) {
+  page-break-after: avoid;
+  break-after: avoid;
+}
+ul, ol { margin: 0.4em 0 0.9em 1.5em; padding: 0; page-break-inside: avoid; break-inside: avoid; }
 li { margin-bottom: 0.25em; }
 table {
   border-collapse: collapse;
@@ -291,6 +299,8 @@ def main() -> int:
     html_text = absolutize_images(html_text)
     html_text = wrap_figures(html_text)
     html_text = split_cover(html_text)
+    # References get their own page (owner decision, 2026-11-06).
+    html_text = html_text.replace("<h2>References</h2>", '<h2 class="new-page">References</h2>', 1)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     HTML.write_text(TEMPLATE.format(css=CSS, body=html_text), encoding="utf-8")
