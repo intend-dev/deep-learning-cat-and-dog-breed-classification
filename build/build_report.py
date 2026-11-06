@@ -174,6 +174,11 @@ figcaption {
   margin-top: 0.4em;
   text-align: left;
 }
+.ref-url {
+  font-size: 12px;
+  overflow-wrap: normal;
+  word-wrap: normal;
+}
 """
 
 TEMPLATE = """<!doctype html>
@@ -299,6 +304,10 @@ def main() -> int:
     html_text = absolutize_images(html_text)
     html_text = wrap_figures(html_text)
     html_text = split_cover(html_text)
+    # Reference URLs on their own line at a size that never wraps (copyable).
+    html_text = re.sub(
+        r"(https?://[^\s<\"]+)", r'<span class="ref-url">\1</span>', html_text
+    )
     # References get their own page (owner decision, 2026-11-06).
     html_text = html_text.replace("<h2>References</h2>", '<h2 class="new-page">References</h2>', 1)
 
